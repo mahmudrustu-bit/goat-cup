@@ -61,22 +61,6 @@
         }
       ],
       "status": "skipped"
-    },
-    {
-      "id": "issue-1",
-      "publish_at": "2026-12-25T20:00:00+03:00",
-      "goal": "duyuru",
-      "brief": "Bu bir sistem denemesidir, yayınlanmayacak\nformun çalışıp çalışmadığını sınıyoruz",
-      "cta": "",
-      "media": [
-        {
-          "file": "issue-1-1.jpg",
-          "type": "IMAGE"
-        }
-      ],
-      "status": "draft",
-      "issue": 1,
-      "alt_text": "Yeşil ve siyah tonlarda dokulu bir zemin üzerinde açık pembe renkli GOAT CUP logosu. Solda yandan duran boynuzlu bir keçi silueti, sağında iki satır halinde GOAT CUP yazısı yer alıyor."
     }
   ]
 }
