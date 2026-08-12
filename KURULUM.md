@@ -146,7 +146,37 @@ göreyse aynı workflow'u `dry_run` kapalı çalıştırın.
 
 ---
 
-## Gönderi ekleme
+## Gönderi ekleme — form ile (günlük kullanım)
+
+JSON'a hiç dokunmadan, telefondan da yapılabilir.
+
+1. **Issues → New issue → "Yeni gönderi"**
+2. Görseli kutuya sürükleyin, tarihi/saati ve ne anlatacağınızı yazın, **Create**.
+3. 1-2 dakika içinde bot issue'nun altına **önizleme yorumu** bırakır: üretilmiş
+   metin, alt text ve görsellerin Instagram kurallarına uygun olup olmadığı.
+4. Beğendiyseniz issue'ya **`onay`** etiketini ekleyin.
+   - Tarih geçmişse **hemen** yayınlanır.
+   - Tarih ileriyse kuyruğa girer, zamanı gelince yayınlanır.
+5. Beğenmediyseniz **formu düzenleyin** (başlıktaki kalem) — metin yeniden üretilir,
+   yeni bir önizleme yorumu düşer. İstediğiniz kadar tekrarlayabilirsiniz.
+
+Onay etiketini eklemediğiniz sürece gönderi `draft` durumunda kalır ve zamanlanmış
+koşular ona dokunmaz. Vazgeçerseniz issue'yu kapatmanız yeterli.
+
+Formdaki *"Metni kendim yazacağım"* alanını doldurursanız model hiç çalışmaz,
+yazdığınız metin aynen gider.
+
+**Notlar**
+- Görseller `content/images/issue-<numara>-1.jpg` adıyla repoya inip commit'lenir;
+  PNG/HEIC verirseniz JPEG'e çevrilir, 1440px'den genişse küçültülür.
+- Birden fazla görsel = karusel (en fazla 10).
+- Video bu formdan gönderilemez, aşağıdaki elle yöntemi kullanın.
+- Formu yalnızca repo sahibi/işbirlikçileri işletebilir; yabancının açtığı issue
+  metin üretimini tetiklemez.
+
+---
+
+## Gönderi ekleme — kuyruğa elle yazarak
 
 İki adım: görseli koyun, kuyruğa satır ekleyin.
 
@@ -328,13 +358,18 @@ Model ve maliyet ayarı workflow'daki `CLAUDE_EFFORT` ile yapılır
 ## Dosya haritası
 
 ```
+.github/ISSUE_TEMPLATE/
+  gonderi.yml           "Yeni gönderi" formu   ← form alanları buradan değişir
 .github/workflows/
   instagram-post.yml    zamanlanmış yayın işi
+  gonderi-formu.yml     form doldurulunca: taslak + önizleme yorumu
+  gonderi-onay.yml      'onay' etiketi eklenince: yayın veya sıraya alma
   token-kontrol.yml     haftalık token yoklaması, ölürse issue açar
 automation/
   brand.py              GOAT CUP marka brifi ve ses tonu  ← metin buradan ayarlanır
   captions.py           Claude çağrısı, görsel analizi, caption birleştirme
   instagram.py          Meta Graph API istemcisi
+  issue_form.py         issue formunu kuyruk kaydına çevirir
   queue.py              kuyruk okuma/yazma, zamanı gelenleri seçme
   publish.py            giriş noktası
   config.py             ortam değişkenleri

@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Gönderi kuyruğu
+    url: ../../blob/main/content/queue.json
+    about: Sırada bekleyen ve yayınlanmış gönderilerin tamamı.
+  - name: Kurulum ve kullanım
+    url: ../../blob/main/KURULUM.md
+    about: Otomasyonun nasıl çalıştığı, ayarların nerede olduğu.

@@ -1,0 +1,88 @@
+name: Gönderi Onayı
+
+# Issue'ya 'onay' etiketi eklendiğinde çalışır. Etiket ekleme yetkisi zaten
+# yalnızca repo yetkililerinde olduğu için ayrıca yetki kontrolü gerekmez.
+#
+# Yayın tarihi geçmişse gönderi hemen yayınlanır; ileri bir tarihse taslak
+# 'pending' olur ve zamanlı koşu (instagram-post.yml) o tarihte yayınlar.
+
+on:
+  issues:
+    types: [labeled]
+
+concurrency:
+  group: icerik-kuyrugu
+  cancel-in-progress: false
+
+jobs:
+  yayinla:
+    if: github.event.label.name == 'onay'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Bağımlılıkları kur
+        run: pip install -r requirements.txt
+
+      - name: Taslağı yayına al
+        id: onay
+        run: python -m automation.issue_form onayla --issue ${{ github.event.issue.number }}
+
+      - name: Instagram'a gönder
+        if: steps.onay.outputs.publish_now == 'true'
+        continue-on-error: true
+        env:
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GRAPH_API_VERSION: v26.0
+          CLAUDE_MODEL: claude-opus-5
+          CLAUDE_EFFORT: medium
+          CONTENT_BRANCH: ${{ github.ref_name }}
+          IMAGE_BASE_URL: ${{ vars.IMAGE_BASE_URL }}
+        run: python -m automation.publish --post-id "issue-${{ github.event.issue.number }}"
+
+      - name: Sonucu hazırla
+        id: sonuc
+        if: always()
+        run: |
+          python -m automation.issue_form bildir \
+            --issue ${{ github.event.issue.number }} \
+            --comment-out yorum.md
+
+      - name: Kuyruğu commit'le
+        if: always()
+        run: |
+          if [ -z "$(git status --porcelain content)" ]; then
+            echo "Icerikte degisiklik yok."
+            exit 0
+          fi
+          git config user.name  "goatcup-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A content
+          git commit -m "içerik: #${{ github.event.issue.number }} onaylandı [skip ci]"
+          for deneme in 1 2 3; do
+            git pull --rebase --autostash origin ${{ github.ref_name }} && git push && exit 0
+            echo "Push denemesi $deneme basarisiz, tekrar deneniyor..."
+            sleep 5
+          done
+          exit 1
+
+      - name: Sonucu yorum olarak yaz
+        if: always() && hashFiles('yorum.md') != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue comment ${{ github.event.issue.number }} --body-file yorum.md
+          if [ "${{ steps.sonuc.outputs.kapat }}" = "true" ]; then
+            gh issue close ${{ github.event.issue.number }} --reason completed
+          fi

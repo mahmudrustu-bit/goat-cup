@@ -1,0 +1,79 @@
+name: Gönderi Formu
+
+# "Yeni gönderi" issue formu doldurulduğunda çalışır:
+# görselleri repoya indirir, kuyruğa TASLAK yazar, metni üretip yorum atar.
+# Yayın yapmaz - onun için 'onay' etiketi gerekir (bkz. gonderi-onay.yml).
+
+on:
+  issues:
+    types: [opened, edited]
+
+# queue.json'a yazan tüm işler sıraya girsin ki push çakışmasın.
+concurrency:
+  group: icerik-kuyrugu
+  cancel-in-progress: false
+
+jobs:
+  hazirla:
+    # Yalnızca form etiketli issue'lar ve yalnızca repo yetkilileri.
+    # Public repo'da yabancı bir issue metin üretimini tetikleyemesin diye.
+    if: >-
+      contains(github.event.issue.labels.*.name, 'gonderi') &&
+      contains(fromJSON('["OWNER","MEMBER","COLLABORATOR"]'), github.event.issue.author_association)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # görselleri ve kuyruğu commit'lemek için
+      issues: write # önizlemeyi yorum olarak yazmak için
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Bağımlılıkları kur
+        run: pip install -r requirements.txt
+
+      - name: Formu işle ve metni üret
+        id: hazirla
+        continue-on-error: true
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          GITHUB_TOKEN: ${{ github.token }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          CLAUDE_MODEL: claude-opus-5
+          CLAUDE_EFFORT: medium
+        run: |
+          python -m automation.issue_form hazirla \
+            --issue ${{ github.event.issue.number }} \
+            --comment-out yorum.md
+
+      - name: Taslağı commit'le
+        if: always()
+        run: |
+          if [ -z "$(git status --porcelain content)" ]; then
+            echo "Icerikte degisiklik yok."
+            exit 0
+          fi
+          git config user.name  "goatcup-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A content
+          git commit -m "içerik: #${{ github.event.issue.number }} taslağı güncellendi [skip ci]"
+          for deneme in 1 2 3; do
+            git pull --rebase --autostash origin ${{ github.ref_name }} && git push && exit 0
+            echo "Push denemesi $deneme basarisiz, tekrar deneniyor..."
+            sleep 5
+          done
+          exit 1
+
+      - name: Önizlemeyi yorum olarak yaz
+        if: always() && hashFiles('yorum.md') != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh issue comment ${{ github.event.issue.number }} --body-file yorum.md
+
+      - name: Form hatalıysa koşuyu kırmızıya düşür
+        if: steps.hazirla.outcome == 'failure'
+        run: exit 1

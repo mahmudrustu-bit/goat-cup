@@ -1,0 +1,89 @@
+name: Yeni gönderi
+description: Instagram'a gönderi ekle - görseli yükle, ne anlatacağını yaz.
+title: "Gönderi: "
+labels: ["gonderi"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Formu doldurup **Create** deyin. Birkaç dakika içinde bu issue'nun altına
+        üretilmiş metin yorum olarak düşer.
+
+        - Beğenirseniz issue'ya **`onay`** etiketini ekleyin, gönderi yayına girer.
+        - Beğenmezseniz formu düzenleyin (başlıktaki kalem), metin yeniden üretilir.
+
+        Onay vermediğiniz sürece hiçbir şey Instagram'a gitmez.
+
+  - type: textarea
+    id: gorseller
+    attributes:
+      label: Görseller
+      description: |
+        Dosyayı bu kutuya sürükleyin. Birden fazla görsel eklerseniz karusel olur (en fazla 10).
+        JPEG/PNG olabilir - sistem gerekirse çevirir. Video bu formdan gönderilemez.
+      placeholder: Görseli buraya sürükleyin veya yapıştırın
+    validations:
+      required: true
+
+  - type: input
+    id: tarih
+    attributes:
+      label: Yayın tarihi
+      description: Boş bırakırsanız onay verdiğiniz an yayınlanır. Örn: 2026-08-20 veya 20.08.2026
+      placeholder: "2026-08-20"
+
+  - type: input
+    id: saat
+    attributes:
+      label: Saat
+      description: Türkiye saati. Boş bırakırsanız 18:00 kabul edilir.
+      placeholder: "18:00"
+
+  - type: dropdown
+    id: amac
+    attributes:
+      label: Amaç
+      description: Metnin tonunu bu belirler.
+      options:
+        - Kayıt çağrısı
+        - Duyuru
+        - Fikstür
+        - Maç sonucu
+        - Sponsor
+        - Geri sayım
+        - Atmosfer
+    validations:
+      required: true
+
+  - type: textarea
+    id: brief
+    attributes:
+      label: Ne anlatalım?
+      description: |
+        Maddeler halinde yazın, cümle kurmanıza gerek yok. Rakam ve tarih verin -
+        uydurmasın diye. Yazmadığınız hiçbir şeyi metne koymaz.
+      placeholder: |
+        A grubu fikstürü belli oldu
+        ilk maç cumartesi 20:00
+        Yıldızspor - Karaköy United
+    validations:
+      required: true
+
+  - type: input
+    id: cta
+    attributes:
+      label: Yönlendirme (isteğe bağlı)
+      description: Sonda ne yazsın? Boş bırakırsanız amaca göre kendi karar verir.
+      placeholder: Bio linkinden başvur
+
+  - type: textarea
+    id: metin
+    attributes:
+      label: Metni kendim yazacağım (isteğe bağlı)
+      description: |
+        Burayı doldurursanız yapay zekâ hiç çalışmaz, yazdığınız metin aynen gider.
+        Hashtag'leri de siz yazın.
+      placeholder: |
+        A grubu fikstürü belli oldu.
+
+        #goatcup #bartin #halisaha

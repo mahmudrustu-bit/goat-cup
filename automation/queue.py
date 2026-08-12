@@ -12,7 +12,9 @@ from .config import ISTANBUL, IMAGE_DIR, QUEUE_PATH
 
 log = logging.getLogger(__name__)
 
-VALID_STATUSES = {"pending", "published", "failed", "skipped"}
+# draft: issue formundan gelmiş ama henüz onaylanmamış gönderi. due_posts
+# yalnızca 'pending' seçtiği için zamanlı koşular taslaklara dokunmaz.
+VALID_STATUSES = {"draft", "pending", "published", "failed", "skipped"}
 VALID_MEDIA_TYPES = {"IMAGE", "VIDEO"}
 
 
