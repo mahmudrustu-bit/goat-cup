@@ -3,6 +3,23 @@
   "_uyari": "status 'pending' olan her gönderi, publish_at zamanı gelince ONAY SORULMADAN yayınlanır. Onay istiyorsanız 'draft' bırakın; issue formu zaten öyle oluşturur.",
   "posts": [
     {
+      "_not": "TASLAK — onaylanmadan yayınlanmaz. Yayınlamak için status'ü 'pending' yapın.",
+      "id": "kurallar-sss",
+      "publish_at": "2026-08-14T19:00:00+03:00",
+      "goal": "duyuru",
+      "brief": "Takım kaptanlarından en çok gelen kural soruları karusel kartlarda cevaplandı. Kurallar: sahada aynı anda en fazla 4 lisanslı oyuncu bulunabilir. 35 yaş üzeri oyuncular lisanslı sayılmaz. Son bir yıl içinde oynamamış oyuncular lisanslı sayılmaz. Üst yaş sınırı kaldırıldı. 18 yaş altı oyuncular ailesinden izin alarak katılabilir. Grup aşaması bittikten sonra her takım 2 transfer yapabilir, ikisi de lisanslı olabilir. Oyun 7 kişilik (6+1), 2x25 dakika, sınırsız değişiklik, ofsayt yok, kadro 12-16 oyuncu. Grup usulü, kimse tek maçta elenmez. Caption kartların üstünü tekrarlamasın; kaydırmaya davet etsin ve kalan soruları yoruma/DM'e yönlendirsin.",
+      "cta": "Sorun varsa yoruma yazın",
+      "media": [
+        { "file": "kurallar-1.jpg", "type": "IMAGE" },
+        { "file": "kurallar-2.jpg", "type": "IMAGE" },
+        { "file": "kurallar-3.jpg", "type": "IMAGE" },
+        { "file": "kurallar-4.jpg", "type": "IMAGE" },
+        { "file": "kurallar-5.jpg", "type": "IMAGE" },
+        { "file": "kurallar-6.jpg", "type": "IMAGE" }
+      ],
+      "status": "draft"
+    },
+    {
       "_not": "Kurulum sırasında yazılmış ÖRNEK. İçeriği ve görseli onaylanmadı, bu yüzden skipped. Gerçekten paylaşmak isterseniz metni gözden geçirip status'ü 'pending' yapın.",
       "id": "2026-08-14-kontenjan",
       "publish_at": "2026-08-14T18:00:00+03:00",
