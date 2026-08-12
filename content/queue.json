@@ -1,0 +1,45 @@
+{
+  "_aciklama": "Gönderi kuyruğu. Yeni gönderi = bu listeye yeni bir nesne + content/images/ altına görsel. Alanların anlamı için KURULUM.md → 'Gönderi ekleme'.",
+  "posts": [
+    {
+      "id": "2026-08-14-kontenjan",
+      "publish_at": "2026-08-14T18:00:00+03:00",
+      "goal": "kayit",
+      "brief": "Ön başvurular açık. 32 takım kontenjanı var, doldukça kapanacak. Katılım ücretinin üçte biri ödül havuzu olarak takımlara geri dönüyor. Grup usulü oynanıyor, yani ödeme yapan takım tek maçta elenmiyor.",
+      "cta": "Ön başvuru bio linkinde",
+      "media": [{ "file": "kontenjan.jpg", "type": "IMAGE" }],
+      "status": "pending"
+    },
+    {
+      "id": "2026-08-22-geri-sayim",
+      "publish_at": "2026-08-22T21:00:00+03:00",
+      "goal": "geri_sayim",
+      "brief": "İlk düdüğe bir hafta kaldı. 29 Ağustos'ta başlıyoruz, final 26 Eylül. Son takımlar için kontenjan hâlâ açık.",
+      "cta": "Takımını topla, bio linkinden başvur",
+      "media": [{ "file": "geri-sayim.jpg", "type": "IMAGE" }],
+      "status": "pending"
+    },
+    {
+      "id": "2026-08-29-ilk-dudukt",
+      "publish_at": "2026-08-29T12:00:00+03:00",
+      "goal": "duyuru",
+      "brief": "İlk düdük bugün. Grup maçları başlıyor. Sahada görüşmek üzere — fikstür story'de.",
+      "cta": "",
+      "media": [
+        { "file": "acilis-1.jpg", "type": "IMAGE" },
+        { "file": "acilis-2.jpg", "type": "IMAGE" }
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "ornek-elle-yazilmis-caption",
+      "publish_at": "2026-12-31T12:00:00+03:00",
+      "goal": "duyuru",
+      "brief": "Bu örnek gönderi modeli hiç çağırmaz — caption_override doluysa metin olduğu gibi kullanılır. Test bittiğinde status'ü 'skipped' yapın veya bu nesneyi silin.",
+      "caption_override": "Elle yazılmış caption buraya.\n\nModel devreye girmez.\n\n#goatcup #bartin",
+      "alt_text": "GOAT CUP logosu, yeşil halı saha zemininde.",
+      "media": [{ "file": "ornek.jpg", "type": "IMAGE" }],
+      "status": "skipped"
+    }
+  ]
+}

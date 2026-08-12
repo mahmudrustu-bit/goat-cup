@@ -1,0 +1,13 @@
+.env
+
+# İç kullanım — repo public olduğu için yayınlanmıyor.
+# Yayınlanmasını istiyorsanız bu iki satırı silin.
+Goat-Cup-Sunum.html
+Goat-Cup-Sunum.pdf
+
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.DS_Store
+Thumbs.db

@@ -1,0 +1,73 @@
+name: Instagram Gönderim
+
+on:
+  schedule:
+    # GitHub cron UTC çalışır. Türkiye = UTC+3 (yaz saati uygulaması yok).
+    # 09:00 UTC = 12:00 TRT · 15:00 UTC = 18:00 TRT · 18:00 UTC = 21:00 TRT
+    - cron: "0 9,15,18 * * *"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Sadece caption üret, yayınlama"
+        type: boolean
+        default: false
+      post_id:
+        description: "Belirli bir gönderiyi zamanına bakmadan yayınla (queue.json'daki id)"
+        type: string
+        required: false
+
+# İki koşu aynı anda çalışırsa aynı gönderi iki kez yayınlanabilir.
+concurrency:
+  group: instagram-publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # queue.json'daki durumu geri commit'lemek için
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Bağımlılıkları kur
+        run: pip install -r requirements.txt
+
+      - name: Yayınla
+        env:
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GRAPH_API_VERSION: v26.0
+          CLAUDE_MODEL: claude-opus-5
+          CLAUDE_EFFORT: medium
+          MAX_POSTS_PER_RUN: "1"
+          CONTENT_BRANCH: ${{ github.ref_name }}
+          # Repo private ise raw.githubusercontent.com çalışmaz; buraya
+          # GitHub Pages / CDN adresinizi yazın.
+          IMAGE_BASE_URL: ${{ vars.IMAGE_BASE_URL }}
+          DRY_RUN: ${{ inputs.dry_run }}
+        run: |
+          if [ -n "${{ inputs.post_id }}" ]; then
+            python -m automation.publish --post-id "${{ inputs.post_id }}"
+          else
+            python -m automation.publish
+          fi
+
+      - name: Kuyruk durumunu commit'le
+        if: always() && inputs.dry_run != true
+        run: |
+          if git diff --quiet -- content/queue.json; then
+            echo "queue.json değişmedi, commit yok."
+            exit 0
+          fi
+          git config user.name  "goatcup-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add content/queue.json
+          git commit -m "chore: gönderi kuyruğu güncellendi [skip ci]"
+          git push
