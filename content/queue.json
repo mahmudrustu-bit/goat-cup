@@ -61,6 +61,22 @@
         }
       ],
       "status": "skipped"
+    },
+    {
+      "id": "issue-2",
+      "publish_at": "2026-12-25T20:00:00+03:00",
+      "goal": "duyuru",
+      "brief": "Bu bir sistem denemesidir, yayınlanmayacak\nformun çalışıp çalışmadığını sınıyoruz",
+      "cta": "",
+      "media": [
+        {
+          "file": "issue-2-1.jpg",
+          "type": "IMAGE"
+        }
+      ],
+      "status": "draft",
+      "issue": 2,
+      "alt_text": "Yesil ve siyah lekeli dokulu bir zemin uzerinde acik pembe renkli Goat Cup logosu. Solda boynuzlu bir keci silueti, sagda iki satir halinde GOAT CUP yazisi var."
     }
   ]
 }
