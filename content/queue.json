@@ -1,7 +1,9 @@
 {
-  "_aciklama": "Gönderi kuyruğu. Yeni gönderi = bu listeye yeni bir nesne + content/images/ altına görsel. Alanların anlamı için KURULUM.md → 'Gönderi ekleme'.",
+  "_aciklama": "Gönderi kuyruğu. Yeni gönderi için 'Yeni gönderi' issue formunu kullanın (Issues > New issue). Elle eklemek için: bu listeye nesne + content/images/ altına görsel. Alanların anlamı KURULUM.md içinde.",
+  "_uyari": "status 'pending' olan her gönderi, publish_at zamanı gelince ONAY SORULMADAN yayınlanır. Onay istiyorsanız 'draft' bırakın; issue formu zaten öyle oluşturur.",
   "posts": [
     {
+      "_not": "Kurulum sırasında yazılmış ÖRNEK. İçeriği ve görseli onaylanmadı, bu yüzden skipped. Gerçekten paylaşmak isterseniz metni gözden geçirip status'ü 'pending' yapın.",
       "id": "2026-08-14-kontenjan",
       "publish_at": "2026-08-14T18:00:00+03:00",
       "goal": "kayit",
@@ -13,9 +15,10 @@
           "type": "IMAGE"
         }
       ],
-      "status": "pending"
+      "status": "skipped"
     },
     {
+      "_not": "Kurulum sırasında yazılmış ÖRNEK — onaylanmadı, skipped.",
       "id": "2026-08-22-geri-sayim",
       "publish_at": "2026-08-22T21:00:00+03:00",
       "goal": "geri_sayim",
@@ -27,9 +30,10 @@
           "type": "IMAGE"
         }
       ],
-      "status": "pending"
+      "status": "skipped"
     },
     {
+      "_not": "Kurulum sırasında yazılmış ÖRNEK — onaylanmadı, skipped.",
       "id": "2026-08-29-ilk-dudukt",
       "publish_at": "2026-08-29T12:00:00+03:00",
       "goal": "duyuru",
@@ -45,13 +49,13 @@
           "type": "IMAGE"
         }
       ],
-      "status": "pending"
+      "status": "skipped"
     },
     {
+      "_not": "caption_override örneği: bu alan doluysa model hiç çağrılmaz.",
       "id": "ornek-elle-yazilmis-caption",
       "publish_at": "2026-12-31T12:00:00+03:00",
       "goal": "duyuru",
-      "brief": "Bu örnek gönderi modeli hiç çağırmaz — caption_override doluysa metin olduğu gibi kullanılır. Test bittiğinde status'ü 'skipped' yapın veya bu nesneyi silin.",
       "caption_override": "Elle yazılmış caption buraya.\n\nModel devreye girmez.\n\n#goatcup #bartin",
       "alt_text": "GOAT CUP logosu, yeşil halı saha zemininde.",
       "media": [
