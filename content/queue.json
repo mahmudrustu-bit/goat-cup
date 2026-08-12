@@ -7,7 +7,12 @@
       "goal": "kayit",
       "brief": "Ön başvurular açık. 32 takım kontenjanı var, doldukça kapanacak. Katılım ücretinin üçte biri ödül havuzu olarak takımlara geri dönüyor. Grup usulü oynanıyor, yani ödeme yapan takım tek maçta elenmiyor.",
       "cta": "Ön başvuru bio linkinde",
-      "media": [{ "file": "kontenjan.jpg", "type": "IMAGE" }],
+      "media": [
+        {
+          "file": "kontenjan.jpg",
+          "type": "IMAGE"
+        }
+      ],
       "status": "pending"
     },
     {
@@ -16,7 +21,12 @@
       "goal": "geri_sayim",
       "brief": "İlk düdüğe bir hafta kaldı. 29 Ağustos'ta başlıyoruz, final 26 Eylül. Son takımlar için kontenjan hâlâ açık.",
       "cta": "Takımını topla, bio linkinden başvur",
-      "media": [{ "file": "geri-sayim.jpg", "type": "IMAGE" }],
+      "media": [
+        {
+          "file": "geri-sayim.jpg",
+          "type": "IMAGE"
+        }
+      ],
       "status": "pending"
     },
     {
@@ -26,8 +36,14 @@
       "brief": "İlk düdük bugün. Grup maçları başlıyor. Sahada görüşmek üzere — fikstür story'de.",
       "cta": "",
       "media": [
-        { "file": "acilis-1.jpg", "type": "IMAGE" },
-        { "file": "acilis-2.jpg", "type": "IMAGE" }
+        {
+          "file": "acilis-1.jpg",
+          "type": "IMAGE"
+        },
+        {
+          "file": "acilis-2.jpg",
+          "type": "IMAGE"
+        }
       ],
       "status": "pending"
     },
@@ -38,8 +54,29 @@
       "brief": "Bu örnek gönderi modeli hiç çağırmaz — caption_override doluysa metin olduğu gibi kullanılır. Test bittiğinde status'ü 'skipped' yapın veya bu nesneyi silin.",
       "caption_override": "Elle yazılmış caption buraya.\n\nModel devreye girmez.\n\n#goatcup #bartin",
       "alt_text": "GOAT CUP logosu, yeşil halı saha zemininde.",
-      "media": [{ "file": "ornek.jpg", "type": "IMAGE" }],
+      "media": [
+        {
+          "file": "ornek.jpg",
+          "type": "IMAGE"
+        }
+      ],
       "status": "skipped"
+    },
+    {
+      "id": "issue-1",
+      "publish_at": "2026-12-25T20:00:00+03:00",
+      "goal": "duyuru",
+      "brief": "Bu bir sistem denemesidir, yayınlanmayacak\nformun çalışıp çalışmadığını sınıyoruz",
+      "cta": "",
+      "media": [
+        {
+          "file": "issue-1-1.jpg",
+          "type": "IMAGE"
+        }
+      ],
+      "status": "draft",
+      "issue": 1,
+      "alt_text": "Yeşil ve siyah tonlarda dokulu bir zemin üzerinde açık pembe renkli GOAT CUP logosu. Solda yandan duran boynuzlu bir keçi silueti, sağında iki satır halinde GOAT CUP yazısı yer alıyor."
     }
   ]
 }
