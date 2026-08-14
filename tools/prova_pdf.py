@@ -11,6 +11,8 @@ from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFont
 
+import icerik
+
 KOK = Path(__file__).resolve().parent.parent
 GORSEL = KOK / "content" / "images"
 CIKTI = KOK / "Goat-Cup-Kurallar-Provasi.pdf"
@@ -32,35 +34,13 @@ DISPLAY = F + "ariblk.ttf"
 BODY = F + "segoeui.ttf"
 BODY_B = F + "segoeuib.ttf"
 
-METIN = """\
-"Bizim takımda lisanslı var, olmaz mı?" — olur.
+METIN = icerik.metin()
 
-Kimler oynayabilir sorusunun cevabı 4 kartta duruyor: lisanslı oyuncu sınırı, \
-kimin lisanslı sayılmadığı, yaş meselesi ve grup sonrası transfer hakkı.
+# (soru, kartta yazan cevap) - kapak dahil, karusel sirasiyla
+KARTLAR = [("kapak", icerik.KAPAK_BASLIK.rstrip("?").capitalize() + "?")]
+KARTLAR += [(soru, cevap.capitalize()) for soru, cevap, _ in icerik.KARTLAR]
 
-Kaydırıp bak, kadronu ona göre kur. 29 Ağustos'ta ilk düdük çalıyor.
-
-Aklına takılan varsa yoruma yaz, istersen DM'den de cevaplıyoruz.
-
-#goatcup #bartin #bartinhalisaha #halisaha #halisahafutbolu #bartinspor \
-#amatorfutbol #turnuva #halisahaturnuvasi #futbolturnuvasi #karadeniz #futbol"""
-
-KARTLAR = [
-    ("kapak", "Kimler oynayabilir?"),
-    ("Takımımızda lisanslı oyuncu oynatabilir miyiz?", "Sahada en fazla 4 lisanslı"),
-    ("Kim lisanslı oyuncu sayılmaz?", "35 üstü ve 1 yıldır oynamayan"),
-    ("Yaş sınırı var mı?", "Üst yaş sınırı kaldırıldı"),
-    ("Sonradan oyuncu alabilir miyiz?", "Grup sonrası 2 transfer"),
-]
-
-KONTROL = [
-    "Sahada aynı anda en fazla 4 lisanslı oyuncu — doğru mu?",
-    "35 yaş üzeri oyuncular lisanslı sayılmaz — doğru mu?",
-    "Son bir yıl içinde oynamamış oyuncular lisanslı sayılmaz — doğru mu?",
-    "Üst yaş sınırı kaldırıldı, 18 altı aile izniyle katılır — doğru mu?",
-    "Grup sonrası 2 transfer, ikisi de lisanslı olabilir — doğru mu?",
-    "Metindeki \u201c29 Ağustos'ta ilk düdük\u201d tarihi doğru mu?",
-]
+KONTROL = icerik.KONTROL
 
 
 def fnt(yol, boy):
@@ -162,14 +142,14 @@ def ozet():
         ty += 38
 
     # --- kontrol listesi ---
-    y = baslik(d, y + kutu_y + 54, "Ekipten istenen: doğrulama")
+    y = baslik(d, y + kutu_y + 44, "Ekipten istenen: doğrulama")
     kf = fnt(BODY, 25)
     for madde in KONTROL:
         d.rounded_rectangle([M + 2, y + 4, M + 26, y + 28], radius=5, outline=TURF, width=2)
         for s in sar(d, madde, kf, W - 2 * M - 50):
             d.text((M + 46, y), s, font=kf, fill=INK)
             y += 36
-        y += 8
+        y += 5
 
     if y > H - 126:
         raise SystemExit(

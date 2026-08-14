@@ -5,10 +5,12 @@ Icerik kullanicinin verdigi guncel kural setinden - uydurma yok.
 Cikti: content/images/kurallar-1..N.jpg  (1080x1350, 4:5)
 
 Kullanim:  python tools/kartlar.py
-Yeni kart eklemek/degistirmek icin asagidaki KARTLAR listesini duzenleyin.
+Kural metni icerik.py'de - kart, HTML provasi ve PDF provasi hep oradan okur.
 """
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
+
+from icerik import KAPAK_ALT, KAPAK_BASLIK, KARTLAR
 
 KOK = Path(__file__).resolve().parent.parent
 CIKTI = KOK / "content" / "images"
@@ -116,7 +118,7 @@ def kapak(dosya, soru_sayisi):
     logo = logo_getir(270)
     img.paste(logo, ((W - logo.width) // 2, 210), logo)
 
-    fnt, satirlar = sigdir(d, "KİMLER OYNAYABİLİR?", DISPLAY, W - 2 * KENAR, 3, 116, 76)
+    fnt, satirlar = sigdir(d, KAPAK_BASLIK, DISPLAY, W - 2 * KENAR, 3, 116, 76)
     y = 620
     for s in satirlar:
         d.text(((W - d.textlength(s, font=fnt)) / 2, y), s, font=fnt, fill=INK)
@@ -127,7 +129,7 @@ def kapak(dosya, soru_sayisi):
     y += 46
 
     alt = font(BODY, 38)
-    for satir in [f"En çok sorulan {soru_sayisi} soru,", "net cevaplarıyla."]:
+    for satir in [s.format(n=soru_sayisi) for s in KAPAK_ALT]:
         d.text(((W - d.textlength(satir, font=alt)) / 2, y), satir, font=alt, fill=INK2)
         y += 52
 
@@ -195,39 +197,6 @@ def kart(dosya, sira, toplam, soru, cevap, detaylar):
 
     img.save(dosya, "JPEG", quality=92, optimize=True, progressive=True)
     return dosya
-
-
-# ------------------------------------------------------------------ icerik
-# Guncel kural seti - kullanicinin verdigi maddeler birebir.
-
-KARTLAR = [
-    (
-        "Takımımızda lisanslı oyuncu oynatabilir miyiz?",
-        "SAHADA EN FAZLA 4 LİSANSLI",
-        ["Aynı anda sahada 4 lisanslı oyuncu bulunabilir"],
-    ),
-    (
-        "Kim lisanslı oyuncu sayılmaz?",
-        "35 ÜSTÜ VE 1 YILDIR OYNAMAYAN",
-        [
-            "35 yaş üzeri oyuncular lisanslı sayılmaz",
-            "Son bir yıl içinde oynamamış oyuncular lisanslı sayılmaz",
-        ],
-    ),
-    (
-        "Yaş sınırı var mı?",
-        "ÜST YAŞ SINIRI KALDIRILDI",
-        ["18 yaş altı oyuncular ailesinden izin alarak katılabilir"],
-    ),
-    (
-        "Sonradan oyuncu alabilir miyiz?",
-        "GRUP SONRASI 2 TRANSFER",
-        [
-            "Grup aşaması bittikten sonra her takım 2 transfer yapabilir",
-            "İkisi de lisanslı oyuncu olabilir",
-        ],
-    ),
-]
 
 
 def main():
