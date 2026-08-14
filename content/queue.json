@@ -3,7 +3,7 @@
   "_uyari": "status 'pending' olan her gönderi, publish_at zamanı gelince ONAY SORULMADAN yayınlanır. Onay istiyorsanız 'draft' bırakın; issue formu zaten öyle oluşturur.",
   "posts": [
     {
-      "_not": "TASLAK — onaylanmadan yayınlanmaz. Yayınlamak için status'ü 'pending' yapın.",
+      "_not": "YAYINLANDI 14.08.2026. Kart içerikleri tools/icerik.py içinde.",
       "id": "kurallar-sss",
       "publish_at": "2026-08-14T19:00:00+03:00",
       "goal": "duyuru",
