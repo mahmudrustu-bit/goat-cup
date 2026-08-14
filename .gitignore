@@ -5,6 +5,11 @@
 Goat-Cup-Sunum.html
 Goat-Cup-Sunum.pdf
 
+# Ekibe gonderilen prova dosyalari — tools/ altindaki betiklerden
+# her an yeniden uretilir, repoda tutmaya gerek yok.
+Goat-Cup-Kurallar-Provasi.html
+Goat-Cup-Kurallar-Provasi.pdf
+
 __pycache__/
 *.py[cod]
 .venv/
