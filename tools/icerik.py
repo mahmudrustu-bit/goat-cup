@@ -41,11 +41,11 @@ KARTLAR = [
     ),
     (
         "Sonradan oyuncu alabilir miyiz?",
-        "TURNUVA BOYUNCA 2 TRANSFER",
+        "TRANSFER SERBEST",
         [
-            "Transfer turnuva süresince yapılabilir, grup sonuyla sınırlı değil",
+            "Turnuva boyunca istediğiniz zaman transfer yapabilirsiniz",
+            "Transfer sayısında sınır yok",
             "Her transfer 5.000 TL",
-            "İkisi de lisanslı oyuncu olabilir",
         ],
     ),
 ]
@@ -57,7 +57,7 @@ KONTROL = [
     "2007 sonrası doğumlular, lisansı olsa da lisanssız sayılır — doğru mu?",
     "Son bir yıl içinde oynamamış oyuncular lisanssız sayılır — doğru mu?",
     "Ne üst ne alt yaş sınırı yok, 18 altı veli izniyle katılır — doğru mu?",
-    "Turnuva boyunca 2 transfer, her biri 5.000 TL — doğru mu?",
+    "Transfer serbest, sayı sınırı yok, her transfer 5.000 TL — doğru mu?",
     "Metindeki “29 Ağustos'ta ilk düdük” tarihi doğru mu?",
 ]
 

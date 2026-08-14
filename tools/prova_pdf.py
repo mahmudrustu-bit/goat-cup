@@ -93,7 +93,8 @@ def logo(yukseklik, pembe=True):
 # ------------------------------------------------------------------ sayfa 1
 
 
-def ozet():
+def ozet_ciz(kart_olcek=1.0, metin_boy=25):
+    """Ozet sayfasini cizer. Sigmazsa None doner - bkz. ozet()."""
     img = Image.new("RGB", (W, H), AK)
     d = ImageDraw.Draw(img)
     d.rectangle([0, 0, W, 10], fill=ACCENT)
@@ -108,54 +109,54 @@ def ozet():
 
     y += 104
     af = fnt(BODY, 27)
-    d.text((M, y), "5 kartlık Instagram karuseli · henüz yayınlanmadı", font=af, fill=INK2)
+    d.text((M, y), f"{len(KARTLAR)} kartlık Instagram karuseli · henüz yayınlanmadı",
+           font=af, fill=INK2)
 
     # --- kartlar seridi ---
     y = baslik(d, y + 76, "Kartlar")
-    kart_g = (W - 2 * M - 4 * 22) // 5
+    tam_g = (W - 2 * M - (len(KARTLAR) - 1) * 22) // len(KARTLAR)
+    kart_g = round(tam_g * kart_olcek)
     kart_y = round(kart_g * 1350 / 1080)
-    x = M
-    for i in range(1, 6):
+    x = M + (tam_g - kart_g) // 2
+    for i in range(1, len(KARTLAR) + 1):
         with Image.open(GORSEL / f"kurallar-{i}.jpg") as k:
             img.paste(k.convert("RGB").resize((kart_g, kart_y), Image.LANCZOS), (x, y))
         d.rectangle([x, y, x + kart_g - 1, y + kart_y - 1], outline=LINE, width=1)
         d.text((x, y + kart_y + 12), f"{i:02d}", font=fnt(BODY_B, 20), fill=INK3)
-        x += kart_g + 22
+        x += tam_g + 22
 
     # --- metin ---
+    satir_y = round(metin_boy * 1.52)
+    bos_y = round(metin_boy * 0.64)
     y = baslik(d, y + kart_y + 54, "Gönderi metni")
-    mf = fnt(BODY, 25)
+    mf = fnt(BODY, metin_boy)
     satirlar = sar(d, METIN, mf, W - 2 * M - 60)
-    # Kutu yuksekligi cizim dongusuyle birebir ayni hesaplanmali: dolu satir
-    # 38, bos satir 16 px. Ayri formul kullanmak kutuyu sisiriyordu.
-    ic_yukseklik = sum(16 if not s else 38 for s in satirlar)
-    kutu_y = ic_yukseklik + 56
+    # Kutu yuksekligi cizim dongusuyle birebir ayni hesaplanmali; ayri
+    # formul kullanmak kutuyu sisiriyordu.
+    kutu_y = sum(bos_y if not s else satir_y for s in satirlar) + 56
     d.rounded_rectangle([M, y, W - M, y + kutu_y], radius=10, fill=SUNKEN)
     d.rectangle([M, y, M + 4, y + kutu_y], fill=ACCENT)
 
     ty = y + 28
     for s in satirlar:
         if not s:
-            ty += 16
+            ty += bos_y
             continue
         d.text((M + 30, ty), s, font=mf, fill=ACCENT if s.startswith("#") else INK)
-        ty += 38
+        ty += satir_y
 
     # --- kontrol listesi ---
     y = baslik(d, y + kutu_y + 44, "Ekipten istenen: doğrulama")
-    kf = fnt(BODY, 25)
+    kf = fnt(BODY, metin_boy)
     for madde in KONTROL:
         d.rounded_rectangle([M + 2, y + 4, M + 26, y + 28], radius=5, outline=TURF, width=2)
         for s in sar(d, madde, kf, W - 2 * M - 50):
             d.text((M + 46, y), s, font=kf, fill=INK)
-            y += 36
+            y += satir_y - 2
         y += 5
 
     if y > H - 126:
-        raise SystemExit(
-            f"Sayfa 1 tasti: icerik {y}px'e kadar iniyor, sinir {H - 126}px. "
-            "Kontrol listesi kisaltilmali veya kart seridi kucultulmeli."
-        )
+        return None  # sigmadi; cagiran daha kucuk olcekle tekrar dener
 
     # --- alt bilgi ---
     lg = logo(34, pembe=False)
@@ -165,6 +166,24 @@ def ozet():
     d.text((W - M - d.textlength(f"Hazırlanma: {bugun}", font=ff), H - 88),
            f"Hazırlanma: {bugun}", font=ff, fill=INK3)
     return img
+
+
+def ozet():
+    """Sayfayi sigana kadar kucultur.
+
+    Gonderi metni her uretimde farkli uzunlukta cikiyor; sabit olculerle
+    her seferinde elle ayar gerekiyordu. Once kart seridi kuculur (sadece
+    kucuk onizleme), yetmezse yazi puntosu."""
+    for kart_olcek, metin_boy in [
+        (1.00, 25), (0.92, 25), (0.86, 24), (0.80, 23), (0.72, 22), (0.64, 21),
+    ]:
+        img = ozet_ciz(kart_olcek, metin_boy)
+        if img is not None:
+            return img
+    raise SystemExit(
+        "Sayfa 1 en kucuk olcekte bile sigmadi. Gonderi metni veya "
+        "dogrulama listesi kisaltilmali."
+    )
 
 
 # --------------------------------------------------------------- kart sayfa
