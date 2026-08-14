@@ -10,13 +10,33 @@
       "brief": "Kimler oynayabilir sorusuna dair 4 kural karusel kartlarında cevaplandı. Kurallar SADECE şunlar, başka kural ekleme: (1) Sahada aynı anda en fazla 4 lisanslı oyuncu bulunabilir. (2) 1992 öncesi doğumlular lisanssız sayılır; 35 yaş üzeri direkt lisanssız. (3) 2007 sonrası doğumlular, lisansı olsa da lisanssız sayılır. (4) Son bir yıl içinde oynamamış oyuncular lisanssız sayılır. (5) Ne üst ne alt yaş sınırı var; 18 yaş altı oyuncular veli izniyle katılabilir. (6) Transfer serbest: turnuva boyunca istenildiği zaman yapılabilir, sayı sınırı yok; her transfer 5.000 TL. Caption kartların üstünü satır satır tekrarlamasın; kaydırmaya davet etsin ve kalan soruları yoruma/DM'e yönlendirsin. Maç formatı, kadro sayısı, süre gibi ayrıntılara GİRME.",
       "cta": "Aklına takılan varsa yoruma yaz",
       "media": [
-        { "file": "kurallar-1.jpg", "type": "IMAGE" },
-        { "file": "kurallar-2.jpg", "type": "IMAGE" },
-        { "file": "kurallar-3.jpg", "type": "IMAGE" },
-        { "file": "kurallar-4.jpg", "type": "IMAGE" },
-        { "file": "kurallar-5.jpg", "type": "IMAGE" }
+        {
+          "file": "kurallar-1.jpg",
+          "type": "IMAGE"
+        },
+        {
+          "file": "kurallar-2.jpg",
+          "type": "IMAGE"
+        },
+        {
+          "file": "kurallar-3.jpg",
+          "type": "IMAGE"
+        },
+        {
+          "file": "kurallar-4.jpg",
+          "type": "IMAGE"
+        },
+        {
+          "file": "kurallar-5.jpg",
+          "type": "IMAGE"
+        }
       ],
-      "status": "draft"
+      "status": "published",
+      "published_at": "2026-08-14T19:25:47.924393+03:00",
+      "media_id": "18136671628524349",
+      "permalink": "https://www.instagram.com/p/DcBvWhQEo_x/",
+      "caption": "\"Bizim takımda lisanslı var, oynayamaz mıyız?\" — en çok gelen soru bu\n\nKısa cevap: oynar. Uzun cevap kartlarda. Kimin lisanslı sayıldığı, kimin sayılmadığı, yaş sınırı ve transfer kuralı — dördü de tek tek yazılı.\n\nKaydır, takımını kafanda kur. İlk düdük 29 Ağustos, final 26 Eylül. 32 takım kontenjanı, ön başvuru bio linkinde.\n\nAklına takılan varsa yoruma yaz, cevaplayalım.\n\n#goatcup #bartin #bartinhalisaha #halisaha #halisahafutbolu #bartinspor #amatorfutbol #turnuva #halisahaturnuvasi #futbolturnuvasi #kupa #takimtopla",
+      "error": null
     },
     {
       "_not": "Kurulum sırasında yazılmış ÖRNEK. İçeriği ve görseli onaylanmadı, bu yüzden skipped. Gerçekten paylaşmak isterseniz metni gözden geçirip status'ü 'pending' yapın.",
